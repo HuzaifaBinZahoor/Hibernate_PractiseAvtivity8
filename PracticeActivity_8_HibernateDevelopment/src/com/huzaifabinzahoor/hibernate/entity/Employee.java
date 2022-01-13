@@ -1,11 +1,15 @@
 package com.huzaifabinzahoor.hibernate.entity;
 
+import java.sql.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "employee")
@@ -13,8 +17,12 @@ public class Employee {
 
 	@Id
 	@Column(name = "id")
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+
+	@Column(name = "date_of_birth")
+	@Temporal(TemporalType.DATE)
+	private java.util.Date dateOfBirth;
 
 	@Column(name = "first_name")
 	private String firstName;
@@ -28,10 +36,20 @@ public class Employee {
 	public Employee() {
 	}
 
-	public Employee(String firstName, String lastName, String company) {
+	public Employee(String firstName, String lastName, String company, java.util.Date theDateOfBirth) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.company = company;
+		this.dateOfBirth = theDateOfBirth;
+
+	}
+
+	public java.util.Date getDateOfBirth() {
+		return dateOfBirth;
+	}
+
+	public void setDateOfBirth(Date dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
 	}
 
 	public int getId() {
@@ -69,7 +87,7 @@ public class Employee {
 	@Override
 	public String toString() {
 		return "Employee [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", company=" + company
-				+ "]";
+				+ ", dateOfBirth=\" + DateUtils.formatDate(dateOfBirth) + \"]";
 	}
 
 }
